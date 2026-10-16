@@ -8,10 +8,14 @@
 :root { color-scheme: light; --ink:#1c1917; --muted:#57534e; --line:#e7e5e4; --paper:#fafaf9; --card:#fff; }
 * { box-sizing: border-box; }
 body { margin:0; font:16px/1.5 "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif; color:var(--ink); background:var(--paper); }
-header, main { width:min(920px, calc(100% - 32px)); margin:0 auto; }
+header, main { width:min(1040px, calc(100% - 32px)); margin:0 auto; }
 header { padding:48px 0 12px; }
 h1 { font-size:42px; line-height:1.1; margin:0 0 8px; letter-spacing:-0.03em; }
 .sub { margin:0; color:var(--muted); font-size:18px; }
+.abstract { margin:18px 0 0; }
+.figure { margin:16px 0 0; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; }
+.figure img { width:100%; height:auto; display:block; }
+.figure figcaption { margin-top:8px; color:var(--muted); font-size:14px; }
 main { padding-bottom:64px; }
 h2 { font-size:22px; margin:40px 0 8px; }
 .lead { margin:0 0 8px; color:var(--muted); }
@@ -31,9 +35,21 @@ footer { color:var(--muted); font-size:13px; margin-top:28px; }
 <body>
 <header>
   <h1>RefAudio</h1>
-  <p class="sub">Reference-conditioned audio generation. Each example plays the reference clips, the target mixture, and our generation.</p>
+  <p class="sub">Training-freely and Precisely Enabling Event-level Reference Control Across Text-to-Audio Generation and Editing</p>
 </header>
 <main>
+  <h2>Abstract</h2>
+  <p class="abstract">Text-to-audio (T2A) diffusion models can sample various sound events from natural language prompt, while precisely achieving fine-grained control over both semantic content and acoustic details remains underexplored. Here, we propose RefAudio, a training-free method that precisely injects event-level acoustic reference into a pre-trained T2A system. We first present the three core requirements of reference-guided T2A: event localization to identify target events, acoustic control to inject reference details, and sample harmonization to ensure global coherence. Correspondingly, along the coarse-to-fine diffusion sampling trajectory, we progressively localize target events by exploiting pre-trained text–audio attention, inject reference acoustic details through gated attention, and harmonize the generated sample with an annealing reference mechanism. Building on this design, we further introduce reference control for the first time in two key settings of text-conditioned audio generation: temporally controlled reference-guided T2A, enabling reference guidance within specified timing intervals, and audio editing, improving tasks across event addition, replacement, and style transfer. Experiments with a state-of-the-art T2A system, Tango-Flux, on real-world and synthetic datasets show that RefAudio faithfully incorporates a variable number of reference events, enabling precise semantic, timing, and acoustic control in audio generation and editing tasks, without additional training or paired data.</p>
+
+  <figure class="figure">
+    <img src="figures/reference-bank.png" alt="Reference feature bank. Native-length references are encoded and injected through a frozen backbone.">
+    <figcaption>Reference feature bank. Each reference keeps its native duration, is encoded by the VAE, and is injected as reference keys and values.</figcaption>
+  </figure>
+  <figure class="figure">
+    <img src="figures/three-stage.png" alt="Three-stage progressive sampling, with and without explicit timing.">
+    <figcaption>Three-stage progressive sampling. Without explicit timing, events are localized from text–audio attention. With explicit timing, layout windows anchor each reference before acoustic injection and late release.</figcaption>
+  </figure>
+
   <h2>AudioCondition</h2>
   <p class="lead">A single reference event is placed on the timeline. These clips do not contain speech.</p>
 
