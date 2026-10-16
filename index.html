@@ -1,1 +1,161 @@
-<h1>RefAudio Homepage</h1>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RefAudio</title>
+<style>
+:root { color-scheme: light; --ink:#1c1917; --muted:#57534e; --line:#e7e5e4; --paper:#fafaf9; --card:#fff; }
+* { box-sizing: border-box; }
+body { margin:0; font:16px/1.5 "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif; color:var(--ink); background:var(--paper); }
+header, main { width:min(920px, calc(100% - 32px)); margin:0 auto; }
+header { padding:48px 0 12px; }
+h1 { font-size:42px; line-height:1.1; margin:0 0 8px; letter-spacing:-0.03em; }
+.sub { margin:0; color:var(--muted); font-size:18px; }
+main { padding-bottom:64px; }
+h2 { font-size:22px; margin:40px 0 8px; }
+.lead { margin:0 0 8px; color:var(--muted); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 18px 8px; margin:14px 0; }
+.card h3 { margin:0 0 4px; font-size:18px; }
+.prompt { margin:0 0 12px; }
+.row { display:grid; grid-template-columns:168px 1fr; gap:10px; align-items:center; margin:0 0 10px; }
+.row span { color:var(--muted); font-size:14px; }
+audio { width:100%; height:36px; }
+footer { color:var(--muted); font-size:13px; margin-top:28px; }
+@media (max-width:640px) {
+  .row { grid-template-columns:1fr; gap:2px; }
+  h1 { font-size:34px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>RefAudio</h1>
+  <p class="sub">Reference-conditioned audio generation. Each example plays the reference clips, the target mixture, and our generation.</p>
+</header>
+<main>
+  <h2>AudioCondition</h2>
+  <p class="lead">A single reference event is placed on the timeline. These clips do not contain speech.</p>
+
+  <article class="card">
+    <h3>Two cat meows</h3>
+    <p class="prompt">Background noise, tapping, and cat sounds are interspersed with purring.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0919/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0919/generated.wav"></audio></div>
+    <div class="row"><span>A cat is meowing.</span><audio controls preload="none" src="audiocondition/ac_0919/ref_00.wav"></audio></div>
+    <div class="row"><span>A cat is meowing.</span><audio controls preload="none" src="audiocondition/ac_0919/ref_01.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>Two dog barks, with a gap</h3>
+    <p class="prompt">Dogs and domestic animals make noises.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/generated.wav"></audio></div>
+    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/ref_00.wav"></audio></div>
+    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/ref_01.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>Four dog barks</h3>
+    <p class="prompt">Animals and birds are making noises in the rural surroundings.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0312/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0312/generated.wav"></audio></div>
+    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_00.wav"></audio></div>
+    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_01.wav"></audio></div>
+    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_02.wav"></audio></div>
+    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_03.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>Alarm from the middle of the clip</h3>
+    <p class="prompt">Doors slam and an alarm sounds on a motor vehicle.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0243/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0243/generated.wav"></audio></div>
+    <div class="row"><span>An alarm is sounding.</span><audio controls preload="none" src="audiocondition/ac_0243/ref_00.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>Four phone rings</h3>
+    <p class="prompt">Telephone rings can be heard along with humming.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0394/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0394/generated.wav"></audio></div>
+    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_00.wav"></audio></div>
+    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_01.wav"></audio></div>
+    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_02.wav"></audio></div>
+    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_03.wav"></audio></div>
+  </article>
+
+  <h2>Concat</h2>
+  <p class="lead">References are placed one after another. One example each for 3, 4, and 5 references.</p>
+
+  <article class="card">
+    <h3>K = 3</h3>
+    <p class="prompt">An engine is idling, and then a dog is barking, then a clock is ticking.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="concat/concat_k3_0031/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="concat/concat_k3_0031/generated.wav"></audio></div>
+    <div class="row"><span>An engine is idling. · 4.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_00.wav"></audio></div>
+    <div class="row"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_01.wav"></audio></div>
+    <div class="row"><span>A clock is ticking. · 5.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_02.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>K = 4</h3>
+    <p class="prompt">A car horn is honking, then a gun is shooting, and then wind is blowing, and then a sheep is bleating.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="concat/concat_k4_0075/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="concat/concat_k4_0075/generated.wav"></audio></div>
+    <div class="row"><span>A car horn is honking. · 4.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_00.wav"></audio></div>
+    <div class="row"><span>A gun is shooting. · 3.25s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_01.wav"></audio></div>
+    <div class="row"><span>Wind is blowing. · 5.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_02.wav"></audio></div>
+    <div class="row"><span>A sheep is bleating. · 5.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_03.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>K = 5</h3>
+    <p class="prompt">A car horn is honking, followed by a drill drilling, then a jackhammer is pounding, then a dog is barking, after that a clock alarm is ringing.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="concat/concat_k5_0067/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="concat/concat_k5_0067/generated.wav"></audio></div>
+    <div class="row"><span>A car horn is honking. · 5.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_00.wav"></audio></div>
+    <div class="row"><span>A drill is drilling. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_01.wav"></audio></div>
+    <div class="row"><span>A jackhammer is pounding. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_02.wav"></audio></div>
+    <div class="row"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_03.wav"></audio></div>
+    <div class="row"><span>A clock alarm is ringing. · 5.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_04.wav"></audio></div>
+  </article>
+
+  <h2>Overlay</h2>
+  <p class="lead">A background reference runs under the events. Reference clips are the original recordings.</p>
+
+  <article class="card">
+    <h3>K = 3 · running water</h3>
+    <p class="prompt">A sheep is bleating, with water running in the background, followed by a dog barking.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="overlay/overlay_k3_0044/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="overlay/overlay_k3_0044/generated.wav"></audio></div>
+    <div class="row"><span>Water is running. (bed) · 12.84s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_00.wav"></audio></div>
+    <div class="row"><span>A sheep is bleating. · 5.00s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_01.wav"></audio></div>
+    <div class="row"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_02.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>K = 3 · chainsaw</h3>
+    <p class="prompt">A siren is wailing, with chainsaw buzzing in the background, followed by a dog barking.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="overlay/overlay_k3_0006/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="overlay/overlay_k3_0006/generated.wav"></audio></div>
+    <div class="row"><span>Chainsaw is buzzing. (bed) · 3.00s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_00.wav"></audio></div>
+    <div class="row"><span>A siren is wailing. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_01.wav"></audio></div>
+    <div class="row"><span>A dog is barking. · 1.41s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_02.wav"></audio></div>
+  </article>
+
+  <article class="card">
+    <h3>K = 4 · river</h3>
+    <p class="prompt">A dog is barking, with a small river flowing in the background, followed by a car horn honking, and then an engine is idling.</p>
+    <div class="row"><span>Target</span><audio controls preload="none" src="overlay/overlay_k4_0040/target.wav"></audio></div>
+    <div class="row"><span>Ours</span><audio controls preload="none" src="overlay/overlay_k4_0040/generated.wav"></audio></div>
+    <div class="row"><span>A small river is flowing. (bed) · 10.01s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_00.wav"></audio></div>
+    <div class="row"><span>A dog is barking. · 1.10s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_01.wav"></audio></div>
+    <div class="row"><span>A car horn is honking. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_02.wav"></audio></div>
+    <div class="row"><span>An engine is idling. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_03.wav"></audio></div>
+  </article>
+
+  <footer>Audio examples for RefAudio. References are played at their source duration.</footer>
+</main>
+</body>
+</html>
