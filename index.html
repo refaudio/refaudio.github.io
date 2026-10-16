@@ -5,30 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RefAudio</title>
 <style>
-:root { color-scheme: light; --ink:#1c1917; --muted:#57534e; --line:#e7e5e4; --paper:#fafaf9; --card:#fff; }
-* { box-sizing: border-box; }
-body { margin:0; font:16px/1.5 "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif; color:var(--ink); background:var(--paper); }
-header, main { width:min(1040px, calc(100% - 32px)); margin:0 auto; }
-header { padding:48px 0 12px; }
-h1 { font-size:42px; line-height:1.1; margin:0 0 8px; letter-spacing:-0.03em; }
+:root {
+  --ink:#1c1917; --muted:#57534e; --line:#e7e5e4; --paper:#f4f5f7; --card:#fff;
+  --accent:#1d4e89;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; color:var(--ink); background:var(--paper);
+  font:16px/1.55 "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+header, main { width:min(1180px, calc(100% - 32px)); margin:0 auto; }
+header { padding:42px 0 8px; }
+h1 { font-size:40px; line-height:1.15; margin:0 0 10px; letter-spacing:-0.03em; }
 .sub { margin:0; color:var(--muted); font-size:18px; }
-.abstract { margin:18px 0 0; }
-.figure { margin:16px 0 0; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; }
-.figure img { width:100%; height:auto; display:block; }
-.figure figcaption { margin-top:8px; color:var(--muted); font-size:14px; }
-main { padding-bottom:64px; }
-h2 { font-size:22px; margin:40px 0 8px; }
-.lead { margin:0 0 8px; color:var(--muted); }
-.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 18px 8px; margin:14px 0; }
+h2 { font-size:26px; margin:42px 0 8px; }
+.lead, .abstract { color:var(--muted); }
+.panel {
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:18px 20px; margin-top:18px;
+}
+.figure { margin:18px 0 0; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 14px 10px; }
+.figure img { width:100%; height:auto; display:block; background:#fff; }
+.figure figcaption { margin:10px 4px 2px; color:#44403c; font-size:14px; line-height:1.45; }
+.card {
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:16px 16px 12px; margin:16px 0;
+}
 .card h3 { margin:0 0 4px; font-size:18px; }
 .prompt { margin:0 0 12px; }
-.row { display:grid; grid-template-columns:168px 1fr; gap:10px; align-items:center; margin:0 0 10px; }
-.row span { color:var(--muted); font-size:14px; }
-audio { width:100%; height:36px; }
-footer { color:var(--muted); font-size:13px; margin-top:28px; }
-@media (max-width:640px) {
-  .row { grid-template-columns:1fr; gap:2px; }
-  h1 { font-size:34px; }
+.systems {
+  display:grid; grid-template-columns:repeat(5, minmax(180px, 1fr));
+  gap:10px; overflow-x:auto; padding-bottom:4px;
+}
+.sys {
+  border:1px solid var(--line); border-radius:10px; padding:8px; background:#fafafa;
+  min-width:180px;
+}
+.sys-name {
+  font-size:13px; font-weight:650; letter-spacing:.01em; margin-bottom:6px; color:var(--accent);
+}
+.sys:first-child .sys-name { color:#9a3412; }
+.mel { width:100%; height:92px; object-fit:cover; border-radius:6px; display:block; background:#111; }
+audio { width:100%; height:32px; margin-top:6px; }
+.refs { margin-top:12px; display:grid; gap:8px; }
+.ref-label { font-size:13px; color:var(--muted); font-weight:650; }
+.ref {
+  display:grid; grid-template-columns:220px 1fr; gap:10px; align-items:center;
+}
+.ref span { color:var(--muted); font-size:14px; }
+footer { color:var(--muted); font-size:13px; margin:28px 0 48px; }
+@media (max-width:800px) {
+  .ref { grid-template-columns:1fr; gap:2px; }
+  h1 { font-size:32px; }
 }
 </style>
 </head>
@@ -38,140 +66,94 @@ footer { color:var(--muted); font-size:13px; margin-top:28px; }
   <p class="sub">Training-freely and Precisely Enabling Event-level Reference Control Across Text-to-Audio Generation and Editing</p>
 </header>
 <main>
-  <h2>Abstract</h2>
-  <p class="abstract">Text-to-audio (T2A) diffusion models can sample various sound events from natural language prompt, while precisely achieving fine-grained control over both semantic content and acoustic details remains underexplored. Here, we propose RefAudio, a training-free method that precisely injects event-level acoustic reference into a pre-trained T2A system. We first present the three core requirements of reference-guided T2A: event localization to identify target events, acoustic control to inject reference details, and sample harmonization to ensure global coherence. Correspondingly, along the coarse-to-fine diffusion sampling trajectory, we progressively localize target events by exploiting pre-trained text–audio attention, inject reference acoustic details through gated attention, and harmonize the generated sample with an annealing reference mechanism. Building on this design, we further introduce reference control for the first time in two key settings of text-conditioned audio generation: temporally controlled reference-guided T2A, enabling reference guidance within specified timing intervals, and audio editing, improving tasks across event addition, replacement, and style transfer. Experiments with a state-of-the-art T2A system, Tango-Flux, on real-world and synthetic datasets show that RefAudio faithfully incorporates a variable number of reference events, enabling precise semantic, timing, and acoustic control in audio generation and editing tasks, without additional training or paired data.</p>
+  <section class="panel">
+    <h2 style="margin-top:0">Abstract</h2>
+    <p class="abstract">Text-to-audio (T2A) diffusion models can sample various sound events from natural language prompt, while precisely achieving fine-grained control over both semantic content and acoustic details remains underexplored. Here, we propose RefAudio, a training-free method that precisely injects event-level acoustic reference into a pre-trained T2A system. We first present the three core requirements of reference-guided T2A: event localization to identify target events, acoustic control to inject reference details, and sample harmonization to ensure global coherence. Correspondingly, along the coarse-to-fine diffusion sampling trajectory, we progressively localize target events by exploiting pre-trained text–audio attention, inject reference acoustic details through gated attention, and harmonize the generated sample with an annealing reference mechanism. Building on this design, we further introduce reference control for the first time in two key settings of text-conditioned audio generation: temporally controlled reference-guided T2A, enabling reference guidance within specified timing intervals, and audio editing, improving tasks across event addition, replacement, and style transfer. Experiments with a state-of-the-art T2A system, Tango-Flux, on real-world and synthetic datasets show that RefAudio faithfully incorporates a variable number of reference events, enabling precise semantic, timing, and acoustic control in audio generation and editing tasks, without additional training or paired data.</p>
+  </section>
 
   <figure class="figure">
-    <img src="figures/reference-bank.png" alt="Reference feature bank. Native-length references are encoded and injected through a frozen backbone.">
-    <figcaption>Reference feature bank. Each reference keeps its native duration, is encoded by the VAE, and is injected as reference keys and values.</figcaption>
+    <img src="figures/reference-bank.png" alt="Timing-controlled reference-guided generation with RefAudio.">
+    <figcaption>Figure 2: Timing-controlled reference-guided generation with RefAudio. The frozen backbone encodes variable-duration references into event-specific key-value banks, which guide sampling according to the caption and specified event intervals.</figcaption>
   </figure>
   <figure class="figure">
-    <img src="figures/three-stage.png" alt="Three-stage progressive sampling, with and without explicit timing.">
-    <figcaption>Three-stage progressive sampling. Without explicit timing, events are localized from text–audio attention. With explicit timing, layout windows anchor each reference before acoustic injection and late release.</figcaption>
+    <img src="figures/three-stage.png" alt="Progressive reference control in RefAudio.">
+    <figcaption>Figure 3: Progressive reference control in RefAudio. Without explicit timing (left), text–audio attention first identifies event regions, gated reference attention then injects acoustic details, and late release allows the sample to harmonize. With explicit timing (right), target intervals anchor the events through Layout-RoPE; window-gated reference injection subsequently refines their acoustics. Both paths follow the same three-stage sampling schedule.</figcaption>
   </figure>
 
   <h2>AudioCondition</h2>
-  <p class="lead">A single reference event is placed on the timeline. These clips do not contain speech.</p>
+<p class="lead">One reference event is placed on the timeline. The four comparison systems hear only the caption.</p>
+<article class="card">
+  <h3>Two cat meows</h3>
+  <p class="prompt">Background noise, tapping, and cat sounds are interspersed with purring.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="audiocondition/ac_0919/generated_mel.png"><audio controls preload="none" src="audiocondition/ac_0919/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="audiocondition/ac_0919/text_tangoflux_mel.png"><audio controls preload="none" src="audiocondition/ac_0919/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="audiocondition/ac_0919/stableaudio3_mel.png"><audio controls preload="none" src="audiocondition/ac_0919/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="audiocondition/ac_0919/tango2_mel.png"><audio controls preload="none" src="audiocondition/ac_0919/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="audiocondition/ac_0919/audioldm2_mel.png"><audio controls preload="none" src="audiocondition/ac_0919/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>A cat is meowing.</span><audio controls preload="none" src="audiocondition/ac_0919/ref_00.wav"></audio></div><div class="ref"><span>A cat is meowing.</span><audio controls preload="none" src="audiocondition/ac_0919/ref_01.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>Two dog barks, with a gap</h3>
+  <p class="prompt">Dogs and domestic animals make noises.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="audiocondition/YBQPk4cmN__4/generated_mel.png"><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="audiocondition/YBQPk4cmN__4/text_tangoflux_mel.png"><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="audiocondition/YBQPk4cmN__4/stableaudio3_mel.png"><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="audiocondition/YBQPk4cmN__4/tango2_mel.png"><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="audiocondition/YBQPk4cmN__4/audioldm2_mel.png"><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/ref_00.wav"></audio></div><div class="ref"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/ref_01.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>Four dog barks</h3>
+  <p class="prompt">Animals and birds are making noises in the rural surroundings.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="audiocondition/ac_0312/generated_mel.png"><audio controls preload="none" src="audiocondition/ac_0312/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="audiocondition/ac_0312/text_tangoflux_mel.png"><audio controls preload="none" src="audiocondition/ac_0312/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="audiocondition/ac_0312/stableaudio3_mel.png"><audio controls preload="none" src="audiocondition/ac_0312/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="audiocondition/ac_0312/tango2_mel.png"><audio controls preload="none" src="audiocondition/ac_0312/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="audiocondition/ac_0312/audioldm2_mel.png"><audio controls preload="none" src="audiocondition/ac_0312/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_00.wav"></audio></div><div class="ref"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_01.wav"></audio></div><div class="ref"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_02.wav"></audio></div><div class="ref"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_03.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>Alarm from the middle of the clip</h3>
+  <p class="prompt">Doors slam and an alarm sounds on a motor vehicle.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="audiocondition/ac_0243/generated_mel.png"><audio controls preload="none" src="audiocondition/ac_0243/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="audiocondition/ac_0243/text_tangoflux_mel.png"><audio controls preload="none" src="audiocondition/ac_0243/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="audiocondition/ac_0243/stableaudio3_mel.png"><audio controls preload="none" src="audiocondition/ac_0243/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="audiocondition/ac_0243/tango2_mel.png"><audio controls preload="none" src="audiocondition/ac_0243/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="audiocondition/ac_0243/audioldm2_mel.png"><audio controls preload="none" src="audiocondition/ac_0243/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>An alarm is sounding.</span><audio controls preload="none" src="audiocondition/ac_0243/ref_00.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>Four phone rings</h3>
+  <p class="prompt">Telephone rings can be heard along with humming.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="audiocondition/ac_0394/generated_mel.png"><audio controls preload="none" src="audiocondition/ac_0394/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="audiocondition/ac_0394/text_tangoflux_mel.png"><audio controls preload="none" src="audiocondition/ac_0394/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="audiocondition/ac_0394/stableaudio3_mel.png"><audio controls preload="none" src="audiocondition/ac_0394/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="audiocondition/ac_0394/tango2_mel.png"><audio controls preload="none" src="audiocondition/ac_0394/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="audiocondition/ac_0394/audioldm2_mel.png"><audio controls preload="none" src="audiocondition/ac_0394/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_00.wav"></audio></div><div class="ref"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_01.wav"></audio></div><div class="ref"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_02.wav"></audio></div><div class="ref"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_03.wav"></audio></div></div>
+</article>
+<h2>Concat</h2>
+<p class="lead">References are placed one after another. One example each for 3, 4, and 5 references.</p>
+<article class="card">
+  <h3>K = 3</h3>
+  <p class="prompt">An engine is idling, and then a dog is barking, then a clock is ticking.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="concat/concat_k3_0031/generated_mel.png"><audio controls preload="none" src="concat/concat_k3_0031/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="concat/concat_k3_0031/text_tangoflux_mel.png"><audio controls preload="none" src="concat/concat_k3_0031/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="concat/concat_k3_0031/stableaudio3_mel.png"><audio controls preload="none" src="concat/concat_k3_0031/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="concat/concat_k3_0031/tango2_mel.png"><audio controls preload="none" src="concat/concat_k3_0031/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="concat/concat_k3_0031/audioldm2_mel.png"><audio controls preload="none" src="concat/concat_k3_0031/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>An engine is idling. · 4.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_00.wav"></audio></div><div class="ref"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_01.wav"></audio></div><div class="ref"><span>A clock is ticking. · 5.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_02.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>K = 4</h3>
+  <p class="prompt">A car horn is honking, then a gun is shooting, and then wind is blowing, and then a sheep is bleating.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="concat/concat_k4_0075/generated_mel.png"><audio controls preload="none" src="concat/concat_k4_0075/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="concat/concat_k4_0075/text_tangoflux_mel.png"><audio controls preload="none" src="concat/concat_k4_0075/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="concat/concat_k4_0075/stableaudio3_mel.png"><audio controls preload="none" src="concat/concat_k4_0075/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="concat/concat_k4_0075/tango2_mel.png"><audio controls preload="none" src="concat/concat_k4_0075/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="concat/concat_k4_0075/audioldm2_mel.png"><audio controls preload="none" src="concat/concat_k4_0075/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>A car horn is honking. · 4.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_00.wav"></audio></div><div class="ref"><span>A gun is shooting. · 3.25s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_01.wav"></audio></div><div class="ref"><span>Wind is blowing. · 5.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_02.wav"></audio></div><div class="ref"><span>A sheep is bleating. · 5.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_03.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>K = 5</h3>
+  <p class="prompt">A car horn is honking, followed by a drill drilling, then a jackhammer is pounding, then a dog is barking, after that a clock alarm is ringing.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="concat/concat_k5_0067/generated_mel.png"><audio controls preload="none" src="concat/concat_k5_0067/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="concat/concat_k5_0067/text_tangoflux_mel.png"><audio controls preload="none" src="concat/concat_k5_0067/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="concat/concat_k5_0067/stableaudio3_mel.png"><audio controls preload="none" src="concat/concat_k5_0067/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="concat/concat_k5_0067/tango2_mel.png"><audio controls preload="none" src="concat/concat_k5_0067/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="concat/concat_k5_0067/audioldm2_mel.png"><audio controls preload="none" src="concat/concat_k5_0067/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>A car horn is honking. · 5.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_00.wav"></audio></div><div class="ref"><span>A drill is drilling. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_01.wav"></audio></div><div class="ref"><span>A jackhammer is pounding. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_02.wav"></audio></div><div class="ref"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_03.wav"></audio></div><div class="ref"><span>A clock alarm is ringing. · 5.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_04.wav"></audio></div></div>
+</article>
+<h2>Overlay</h2>
+<p class="lead">A background reference stays open under the events. Reference clips keep their original duration.</p>
+<article class="card">
+  <h3>K = 3 · running water</h3>
+  <p class="prompt">A sheep is bleating, with water running in the background, followed by a dog barking.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="overlay/overlay_k3_0044/generated_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0044/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="overlay/overlay_k3_0044/text_tangoflux_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0044/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="overlay/overlay_k3_0044/stableaudio3_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0044/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="overlay/overlay_k3_0044/tango2_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0044/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="overlay/overlay_k3_0044/audioldm2_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0044/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>Water is running. · bed · 12.84s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_00.wav"></audio></div><div class="ref"><span>A sheep is bleating. · 5.00s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_01.wav"></audio></div><div class="ref"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_02.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>K = 3 · chainsaw</h3>
+  <p class="prompt">A siren is wailing, with chainsaw buzzing in the background, followed by a dog barking.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="overlay/overlay_k3_0006/generated_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0006/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="overlay/overlay_k3_0006/text_tangoflux_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0006/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="overlay/overlay_k3_0006/stableaudio3_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0006/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="overlay/overlay_k3_0006/tango2_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0006/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="overlay/overlay_k3_0006/audioldm2_mel.png"><audio controls preload="none" src="overlay/overlay_k3_0006/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>Chainsaw is buzzing. · bed · 3.00s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_00.wav"></audio></div><div class="ref"><span>A siren is wailing. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_01.wav"></audio></div><div class="ref"><span>A dog is barking. · 1.41s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_02.wav"></audio></div></div>
+</article>
+<article class="card">
+  <h3>K = 4 · river</h3>
+  <p class="prompt">A dog is barking, with a small river flowing in the background, followed by a car horn honking, and then an engine is idling.</p>
+  <div class="systems"><div class="sys"><div class="sys-name">RefAudio</div><img class="mel" alt="Mel spectrogram of RefAudio" src="overlay/overlay_k4_0040/generated_mel.png"><audio controls preload="none" src="overlay/overlay_k4_0040/generated.wav"></audio></div><div class="sys"><div class="sys-name">TangoFlux</div><img class="mel" alt="Mel spectrogram of TangoFlux" src="overlay/overlay_k4_0040/text_tangoflux_mel.png"><audio controls preload="none" src="overlay/overlay_k4_0040/text_tangoflux.wav"></audio></div><div class="sys"><div class="sys-name">Stable Audio 3</div><img class="mel" alt="Mel spectrogram of Stable Audio 3" src="overlay/overlay_k4_0040/stableaudio3_mel.png"><audio controls preload="none" src="overlay/overlay_k4_0040/stableaudio3.wav"></audio></div><div class="sys"><div class="sys-name">Tango 2</div><img class="mel" alt="Mel spectrogram of Tango 2" src="overlay/overlay_k4_0040/tango2_mel.png"><audio controls preload="none" src="overlay/overlay_k4_0040/tango2.wav"></audio></div><div class="sys"><div class="sys-name">AudioLDM 2</div><img class="mel" alt="Mel spectrogram of AudioLDM 2" src="overlay/overlay_k4_0040/audioldm2_mel.png"><audio controls preload="none" src="overlay/overlay_k4_0040/audioldm2.wav"></audio></div></div>
+  <div class="refs"><div class="ref-label">References</div><div class="ref"><span>A small river is flowing. · bed · 10.01s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_00.wav"></audio></div><div class="ref"><span>A dog is barking. · 1.10s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_01.wav"></audio></div><div class="ref"><span>A car horn is honking. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_02.wav"></audio></div><div class="ref"><span>An engine is idling. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_03.wav"></audio></div></div>
+</article>
 
-  <article class="card">
-    <h3>Two cat meows</h3>
-    <p class="prompt">Background noise, tapping, and cat sounds are interspersed with purring.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0919/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0919/generated.wav"></audio></div>
-    <div class="row"><span>A cat is meowing.</span><audio controls preload="none" src="audiocondition/ac_0919/ref_00.wav"></audio></div>
-    <div class="row"><span>A cat is meowing.</span><audio controls preload="none" src="audiocondition/ac_0919/ref_01.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>Two dog barks, with a gap</h3>
-    <p class="prompt">Dogs and domestic animals make noises.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/generated.wav"></audio></div>
-    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/ref_00.wav"></audio></div>
-    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/YBQPk4cmN__4/ref_01.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>Four dog barks</h3>
-    <p class="prompt">Animals and birds are making noises in the rural surroundings.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0312/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0312/generated.wav"></audio></div>
-    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_00.wav"></audio></div>
-    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_01.wav"></audio></div>
-    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_02.wav"></audio></div>
-    <div class="row"><span>A dog is barking.</span><audio controls preload="none" src="audiocondition/ac_0312/ref_03.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>Alarm from the middle of the clip</h3>
-    <p class="prompt">Doors slam and an alarm sounds on a motor vehicle.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0243/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0243/generated.wav"></audio></div>
-    <div class="row"><span>An alarm is sounding.</span><audio controls preload="none" src="audiocondition/ac_0243/ref_00.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>Four phone rings</h3>
-    <p class="prompt">Telephone rings can be heard along with humming.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="audiocondition/ac_0394/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="audiocondition/ac_0394/generated.wav"></audio></div>
-    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_00.wav"></audio></div>
-    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_01.wav"></audio></div>
-    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_02.wav"></audio></div>
-    <div class="row"><span>A phone is ringing.</span><audio controls preload="none" src="audiocondition/ac_0394/ref_03.wav"></audio></div>
-  </article>
-
-  <h2>Concat</h2>
-  <p class="lead">References are placed one after another. One example each for 3, 4, and 5 references.</p>
-
-  <article class="card">
-    <h3>K = 3</h3>
-    <p class="prompt">An engine is idling, and then a dog is barking, then a clock is ticking.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="concat/concat_k3_0031/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="concat/concat_k3_0031/generated.wav"></audio></div>
-    <div class="row"><span>An engine is idling. · 4.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_00.wav"></audio></div>
-    <div class="row"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_01.wav"></audio></div>
-    <div class="row"><span>A clock is ticking. · 5.00s</span><audio controls preload="none" src="concat/concat_k3_0031/ref_02.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>K = 4</h3>
-    <p class="prompt">A car horn is honking, then a gun is shooting, and then wind is blowing, and then a sheep is bleating.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="concat/concat_k4_0075/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="concat/concat_k4_0075/generated.wav"></audio></div>
-    <div class="row"><span>A car horn is honking. · 4.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_00.wav"></audio></div>
-    <div class="row"><span>A gun is shooting. · 3.25s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_01.wav"></audio></div>
-    <div class="row"><span>Wind is blowing. · 5.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_02.wav"></audio></div>
-    <div class="row"><span>A sheep is bleating. · 5.00s</span><audio controls preload="none" src="concat/concat_k4_0075/ref_03.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>K = 5</h3>
-    <p class="prompt">A car horn is honking, followed by a drill drilling, then a jackhammer is pounding, then a dog is barking, after that a clock alarm is ringing.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="concat/concat_k5_0067/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="concat/concat_k5_0067/generated.wav"></audio></div>
-    <div class="row"><span>A car horn is honking. · 5.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_00.wav"></audio></div>
-    <div class="row"><span>A drill is drilling. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_01.wav"></audio></div>
-    <div class="row"><span>A jackhammer is pounding. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_02.wav"></audio></div>
-    <div class="row"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_03.wav"></audio></div>
-    <div class="row"><span>A clock alarm is ringing. · 5.00s</span><audio controls preload="none" src="concat/concat_k5_0067/ref_04.wav"></audio></div>
-  </article>
-
-  <h2>Overlay</h2>
-  <p class="lead">A background reference runs under the events. Reference clips are the original recordings.</p>
-
-  <article class="card">
-    <h3>K = 3 · running water</h3>
-    <p class="prompt">A sheep is bleating, with water running in the background, followed by a dog barking.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="overlay/overlay_k3_0044/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="overlay/overlay_k3_0044/generated.wav"></audio></div>
-    <div class="row"><span>Water is running. (bed) · 12.84s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_00.wav"></audio></div>
-    <div class="row"><span>A sheep is bleating. · 5.00s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_01.wav"></audio></div>
-    <div class="row"><span>A dog is barking. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k3_0044/ref_02.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>K = 3 · chainsaw</h3>
-    <p class="prompt">A siren is wailing, with chainsaw buzzing in the background, followed by a dog barking.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="overlay/overlay_k3_0006/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="overlay/overlay_k3_0006/generated.wav"></audio></div>
-    <div class="row"><span>Chainsaw is buzzing. (bed) · 3.00s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_00.wav"></audio></div>
-    <div class="row"><span>A siren is wailing. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_01.wav"></audio></div>
-    <div class="row"><span>A dog is barking. · 1.41s</span><audio controls preload="none" src="overlay/overlay_k3_0006/ref_02.wav"></audio></div>
-  </article>
-
-  <article class="card">
-    <h3>K = 4 · river</h3>
-    <p class="prompt">A dog is barking, with a small river flowing in the background, followed by a car horn honking, and then an engine is idling.</p>
-    <div class="row"><span>Target</span><audio controls preload="none" src="overlay/overlay_k4_0040/target.wav"></audio></div>
-    <div class="row"><span>Ours</span><audio controls preload="none" src="overlay/overlay_k4_0040/generated.wav"></audio></div>
-    <div class="row"><span>A small river is flowing. (bed) · 10.01s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_00.wav"></audio></div>
-    <div class="row"><span>A dog is barking. · 1.10s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_01.wav"></audio></div>
-    <div class="row"><span>A car horn is honking. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_02.wav"></audio></div>
-    <div class="row"><span>An engine is idling. · 4.00s</span><audio controls preload="none" src="overlay/overlay_k4_0040/ref_03.wav"></audio></div>
-  </article>
-
-  <footer>Audio examples for RefAudio. References are played at their source duration.</footer>
+  <footer>Comparison systems are text-only generations of the same caption. RefAudio also hears the reference clips. Ground-truth recordings are not shown.</footer>
 </main>
 </body>
 </html>
